@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>Home</h1>
-    <p>Ticks: {{tickCounter}}</p>
+    <pre>{{state}}</pre>
+    <pre>Slip ratio: {{state.ball.angularVelocity * state.ball.radius / state.ball.velocity - 1}}</pre>
   </div>
 </template>
 
@@ -10,13 +11,8 @@
     name: 'home',
     inject: [ 'game' ],
     data () {
-      return { tickCounter: 0 }
+      return { state: this.game.state }
     },
-    watch: {
-      'game.tick' (tickCounter) {
-        this.tickCounter = tickCounter
-      }
-    }
   }
 </script>
 
