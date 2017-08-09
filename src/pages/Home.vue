@@ -1,8 +1,13 @@
 <template>
   <div>
-    <h1>Home</h1>
-    <pre>{{state}}</pre>
-    <pre>Slip ratio: {{state.ball.angularVelocity * state.ball.radius / state.ball.velocity - 1}}</pre>
+    <h3>Home</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <pre>Slip ratio: {{state.ball.angularVelocity * state.ball.radius / state.ball.velocity - 1}}</pre>
+      </div>
+      <pre class="col-md-4">{{state}}</pre>
+      <pre class="col-md-4">{{game.const}}</pre>
+    </div>
   </div>
 </template>
 
