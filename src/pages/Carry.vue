@@ -1,7 +1,24 @@
 <style scoped lang="less">
+
+div#distance {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.hud {
+  font-size: 32px;
+  color: white;
+}
+
 </style>
 
 <template>
+  <div>
+    <div class="hud" id="distance">{{distance}}</div>
+  </div>
+      
+  
 </template>
 
 <script>
@@ -20,9 +37,14 @@
 
   export default {
     name: 'planck',
+    data() {
+      return {
+        distance: 0
+      }
+    }, 
     methods: {
       setup (testbed) {
-
+        testbed.background = "#222222";
         testbed.speed = 1.3;
         testbed.hz = 50;
 
@@ -37,6 +59,8 @@
         var SPEED = 150.0 * SCALE * SCALE;
         var TRAILER_DIST = 0.75 * SCALE
         var TRAILER_HEIGHT = 0.5 * SCALE
+
+        this.distance = 0;
 
         var ground = world.createBody({
           userData: {
@@ -358,6 +382,10 @@
             testbed.x = cp.x + 10;
           }
 
+          if(cp.x > this.distance) {
+            this.distance = floor(cp.x);
+          }
+
           var prevVec = car.getWorldVector(fwVec)
           var prevTrailer = null
           for (var trailer = trailers[ 0 ], len = 0; trailer; trailer = trailer.next, len++) {
@@ -377,7 +405,7 @@
           }
 
           car.applyTorque(-car.getAngle()*75)
-        };
+        }.bind(this);
 
         testbed.info('←/→: Accelerate car, ↑/↓: Change spring frequency');
 
