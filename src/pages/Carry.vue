@@ -17,8 +17,8 @@ div#distance {
   <div>
     <div class="hud" id="distance">{{distance}}</div>
   </div>
-      
-  
+
+
 </template>
 
 <script>
@@ -41,7 +41,7 @@ div#distance {
       return {
         distance: 0
       }
-    }, 
+    },
     methods: {
       setup (testbed) {
         testbed.background = "#222222";
@@ -77,7 +77,7 @@ div#distance {
         var p = { x: 20.0, y: 0.0, lastType: 0 }
         var d = 1
         ground.createFixture(pl.Edge(Vec2(-200.0, 0.0), Vec2(p.x, p.y)), groundFD);
-        while (p.x < 2000) {
+        while (p.x < 200) {
           p = createGround(ground, p, {
             difficulty: d,
             lastType: p.lastType
@@ -405,6 +405,14 @@ div#distance {
           }
 
           car.applyTorque(-car.getAngle()*75)
+
+          while (p.x < cp.x + 200) {
+            p = createGround(ground, p, {
+              difficulty: d,
+              lastType: p.lastType
+            })
+            d = min(MAX_DIFF, d + 1)
+          };
         }.bind(this);
 
         testbed.info('←/→: Accelerate car, ↑/↓: Change spring frequency');
